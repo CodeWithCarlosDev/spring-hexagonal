@@ -3,7 +3,7 @@ package red.social.interesescomunes.role.infrastructure.input.api.dto.response;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import red.social.interesescomunes.role.domain.model.TypeRole;
+import red.social.interesescomunes.role.domain.enums.TypeRole;
 
 @Data
 @AllArgsConstructor

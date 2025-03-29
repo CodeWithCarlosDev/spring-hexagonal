@@ -3,6 +3,7 @@ package red.social.interesescomunes.role.domain.model;
 
 import lombok.*;
 import org.springframework.context.ApplicationEventPublisher;
+import red.social.interesescomunes.role.domain.enums.TypeRole;
 import red.social.interesescomunes.role.domain.event.RoleCreatedEvent;
 import red.social.interesescomunes.role.domain.event.RoleDeletedEvent;
 import red.social.interesescomunes.role.domain.event.RoleUpdatedEvent;

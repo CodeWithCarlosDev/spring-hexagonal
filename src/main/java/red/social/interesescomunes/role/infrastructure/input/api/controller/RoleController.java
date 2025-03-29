@@ -46,7 +46,7 @@ public class RoleController{
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<RoleResponse> update(@Valid @PathVariable Long id,@RequestBody RoleRequest roleRequest) {
+    public ResponseEntity<RoleResponse> update(@PathVariable Long id,@Valid @RequestBody RoleRequest roleRequest) {
         Role role = mapper.toDomain(roleRequest);
         Role roleUpdated = this.service.updateRole(id,role);
         RoleResponse response = mapper.toRoleResponse(roleUpdated);

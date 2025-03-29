@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import red.social.interesescomunes.role.domain.model.TypeRole;
+import red.social.interesescomunes.role.domain.enums.TypeRole;
 
 @Entity
 @Table(name = "Roles")

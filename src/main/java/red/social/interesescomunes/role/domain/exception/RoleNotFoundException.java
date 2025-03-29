@@ -1,9 +1,13 @@
 package red.social.interesescomunes.role.domain.exception;
 
-public class RoleNotFoundException extends RuntimeException{
-    private static final String DESCRIPTION = "Not Found Exception (404)";
+import red.social.interesescomunes.shared.exception.http.NotFoundException;
+import red.social.interesescomunes.utils.ErrorCatalog;
+
+public class RoleNotFoundException extends NotFoundException {
+    private static final String code = ErrorCatalog.ROLE_NOT_FOUND.getCode();
 
     public RoleNotFoundException(String detail){
-        super(DESCRIPTION + ": " + detail);
+        super(ErrorCatalog.ROLE_NOT_FOUND.getMessage(), detail, code);
     }
+
 }

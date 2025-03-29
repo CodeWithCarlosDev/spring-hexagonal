@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import red.social.interesescomunes.role.domain.model.Role;
-import red.social.interesescomunes.role.domain.model.TypeRole;
+import red.social.interesescomunes.role.domain.enums.TypeRole;
 import red.social.interesescomunes.role.infrastructure.input.api.dto.request.RoleRequest;
 import red.social.interesescomunes.role.infrastructure.input.api.dto.response.RoleResponse;
 
