@@ -1,9 +1,10 @@
 package red.social.interesescomunes.role.application.service;
 
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import red.social.interesescomunes.role.application.input.IRoleServicePort;
 import red.social.interesescomunes.role.application.output.IRolePersistencePort;
+import red.social.interesescomunes.role.domain.event.IRoleDomainEventPublisher;
 import red.social.interesescomunes.role.domain.exception.RoleNotFoundException;
 import red.social.interesescomunes.role.domain.model.Role;
 
@@ -12,9 +13,9 @@ import java.util.List;
 @Service
 public class RoleServiceImpl implements IRoleServicePort {
     private final IRolePersistencePort repository;
-    private final ApplicationEventPublisher eventPublisher;
+    private final IRoleDomainEventPublisher eventPublisher;
 
-    public RoleServiceImpl(IRolePersistencePort repositoy, ApplicationEventPublisher eventPublisher) {
+    public RoleServiceImpl(IRolePersistencePort repositoy, IRoleDomainEventPublisher eventPublisher) {
         this.repository = repositoy;
         this.eventPublisher = eventPublisher;
     }
@@ -31,6 +32,7 @@ public class RoleServiceImpl implements IRoleServicePort {
     }
 
     @Override
+    @Transactional
     public Role createRole(Role role) {
         Role roleCreated = repository.save(role);
         roleCreated.create(this.eventPublisher);
@@ -38,6 +40,7 @@ public class RoleServiceImpl implements IRoleServicePort {
     }
 
     @Override
+    @Transactional
     public Role updateRole(Long id, Role role) {
         Role databaseRole = repository.findById(id)
             .orElseThrow(() -> new RoleNotFoundException("No se encontro un rol con el id " + id));
@@ -51,6 +54,7 @@ public class RoleServiceImpl implements IRoleServicePort {
     }
 
     @Override
+    @Transactional
     public void deleteRoleById(Long id) {
         Role role = repository.findById(id)
             .orElseThrow(() -> new RoleNotFoundException("No se encontro un rol con el id " + id));

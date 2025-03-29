@@ -3,13 +3,13 @@ package red.social.interesescomunes.role.domain.event;
 import red.social.interesescomunes.role.domain.model.Role;
 
 public class RoleDeletedEvent {
-    private final Role role;
+    private final RoleEventDTO role;
 
-    public RoleDeletedEvent(Role role) {
-        this.role = role;
+    public RoleDeletedEvent(Role role){
+        this.role = RoleEventDTO.create(role);
     }
 
-    public Role getRole() {
-        return role;
+    public RoleEventDTO getRole(){
+        return this.role;
     }
 }

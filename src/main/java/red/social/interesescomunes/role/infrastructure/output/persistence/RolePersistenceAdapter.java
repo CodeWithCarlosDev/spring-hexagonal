@@ -1,6 +1,8 @@
 package red.social.interesescomunes.role.infrastructure.output.persistence;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import red.social.interesescomunes.role.application.output.IRolePersistencePort;
 import red.social.interesescomunes.role.domain.model.Role;
 import red.social.interesescomunes.role.infrastructure.output.persistence.mapper.IRolePersistenceMapper;
@@ -35,7 +37,6 @@ public class RolePersistenceAdapter implements IRolePersistencePort {
     @Override
     public Role save(Role role) {
         RoleEntity roleEntity = mapper.toEntity(role);
-        System.out.println("RoleEntity : " + roleEntity);
         RoleEntity savedRole = this.repository.save(roleEntity);
         return mapper.toDomain(savedRole);
     }
