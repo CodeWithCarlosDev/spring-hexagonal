@@ -5,12 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.context.ApplicationEventPublisher;
 import red.social.interesescomunes.role.domain.model.Role;
-import red.social.interesescomunes.user.domain.event.UserCreatedEvent;
-import red.social.interesescomunes.user.domain.event.UserDeletedEvent;
-import red.social.interesescomunes.user.domain.event.UserUpdatedEvent;
-
+import red.social.interesescomunes.user.domain.event.IUserDomainEventPublisher;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -24,17 +21,19 @@ public class User {
     private String address;
     private String email;
     private String password;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
     private List<Role> roles;
 
-    public void create(ApplicationEventPublisher eventPublisher){
-        eventPublisher.publishEvent(new UserCreatedEvent(this));
+    public void create(IUserDomainEventPublisher eventPublisher) {
+        eventPublisher.publishUserCreated(this);
     }
 
-    public void update(ApplicationEventPublisher eventPublisher){
-        eventPublisher.publishEvent(new UserUpdatedEvent(this));
+    public void update(IUserDomainEventPublisher eventPublisher) {
+        eventPublisher.publishUserUpdated(this);
     }
 
-    public void delete(ApplicationEventPublisher eventPublisher){
-        eventPublisher.publishEvent(new UserDeletedEvent(this));
+    public void delete(IUserDomainEventPublisher eventPublisher) {
+        eventPublisher.publishUserDeleted(this);
     }
 }

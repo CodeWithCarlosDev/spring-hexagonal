@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
+import red.social.interesescomunes.owner.domain.enums.OwnerStatus;
+import red.social.interesescomunes.owner.domain.event.IOwnerDomainEventPublisher;
 import red.social.interesescomunes.owner.domain.event.OwnerCreatedEvent;
 import red.social.interesescomunes.owner.domain.event.OwnerDeletedEvent;
 import red.social.interesescomunes.owner.domain.event.OwnerUpdatedEvent;
@@ -23,15 +25,15 @@ public class Owner {
     private LocalDateTime endDate;
     private OwnerStatus status;
 
-    public void create(ApplicationEventPublisher eventPublisher){
-        eventPublisher.publishEvent(new OwnerCreatedEvent(this));
+    public void create(IOwnerDomainEventPublisher eventPublisher){
+        eventPublisher.publishOwnerCreated(this);
     }
 
-    public void update(ApplicationEventPublisher eventPublisher){
-        eventPublisher.publishEvent(new OwnerUpdatedEvent(this));
+    public void update(IOwnerDomainEventPublisher eventPublisher){
+        eventPublisher.publishOwnerUpdated(this);
     }
 
-    public void delete(ApplicationEventPublisher eventPublisher){
-        eventPublisher.publishEvent(new OwnerDeletedEvent(this));
+    public void delete(IOwnerDomainEventPublisher eventPublisher){
+        eventPublisher.publishOwnerDeleted(this);
     }
 }

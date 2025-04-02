@@ -3,13 +3,13 @@ package red.social.interesescomunes.user.domain.event;
 import red.social.interesescomunes.user.domain.model.User;
 
 public class UserCreatedEvent {
-    private User user;
+    private final UserEventDTO user;
 
-    public UserCreatedEvent(User user) {
-        this.user = user;
+    public UserCreatedEvent(User user){
+        this.user = UserEventDTO.create(user);
     }
 
-    public User getUser() {
-        return user;
+    public UserEventDTO getUser(){
+        return this.user;
     }
 }

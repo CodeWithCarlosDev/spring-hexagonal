@@ -3,13 +3,13 @@ package red.social.interesescomunes.user.domain.event;
 import red.social.interesescomunes.user.domain.model.User;
 
 public class UserDeletedEvent {
-    private User user;
+    private final UserEventDTO user;
 
-    public UserDeletedEvent(User user) {
-        this.user = user;
+    public UserDeletedEvent(User user){
+        this.user = UserEventDTO.create(user);
     }
 
-    public User getUser() {
-        return user;
+    public UserEventDTO getUser(){
+        return this.user;
     }
 }

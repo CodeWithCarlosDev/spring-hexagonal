@@ -12,9 +12,12 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface IRoleRestMapper {
+
+    @Mapping(target = "id", ignore = true)
     @Mapping(source = "name", target = "name", qualifiedByName = "stringToTypeRole")
     Role toDomain(RoleRequest request);
 
+    @Mapping(source = "id", target = "id")
     @Mapping(source = "name", target = "name", qualifiedByName = "typeRoleToString")
     RoleResponse toRoleResponse(Role role);
 

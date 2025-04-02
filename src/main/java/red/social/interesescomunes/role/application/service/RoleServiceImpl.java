@@ -4,11 +4,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import red.social.interesescomunes.role.application.input.IRoleServicePort;
 import red.social.interesescomunes.role.application.output.IRolePersistencePort;
+import red.social.interesescomunes.role.domain.enums.TypeRole;
 import red.social.interesescomunes.role.domain.event.IRoleDomainEventPublisher;
 import red.social.interesescomunes.role.domain.exception.RoleNotFoundException;
 import red.social.interesescomunes.role.domain.model.Role;
 
+import java.util.Arrays;
 import java.util.List;
+
 
 @Service
 public class RoleServiceImpl implements IRoleServicePort {
@@ -22,19 +25,27 @@ public class RoleServiceImpl implements IRoleServicePort {
 
     @Override
     public List<Role> findAllRoles() {
-        return repository.findAll();
+        return this.repository.findAll();
     }
 
     @Override
     public Role findRoleById(Long id) {
-        return repository.findById(id)
+        return this.repository.findById(id)
             .orElseThrow(() -> new RoleNotFoundException("No se encontro un rol con el id " + id));
+    }
+
+    @Override
+    public Role findRoleByType(String name) {
+        TypeRole typeRole = validateAndConvertRoleType(name);
+
+        return repository.findByType(typeRole)
+            .orElseThrow(() -> new RoleNotFoundException("No se encontró un rol con el tipo " + typeRole.name().toString()));
     }
 
     @Override
     @Transactional
     public Role createRole(Role role) {
-        Role roleCreated = repository.save(role);
+        Role roleCreated = this.repository.save(role);
         roleCreated.create(this.eventPublisher);
         return roleCreated;
     }
@@ -42,13 +53,13 @@ public class RoleServiceImpl implements IRoleServicePort {
     @Override
     @Transactional
     public Role updateRole(Long id, Role role) {
-        Role databaseRole = repository.findById(id)
+        Role existingRole = this.repository.findById(id)
             .orElseThrow(() -> new RoleNotFoundException("No se encontro un rol con el id " + id));
         // actualizamos los datos
-        databaseRole.setName(role.getName());
-        databaseRole.setDescription(role.getDescription());
+        existingRole.setName(role.getName());
+        existingRole.setDescription(role.getDescription());
         // guardamos y publica el evento
-        Role roleUpdated = repository.save(databaseRole);
+        Role roleUpdated = this.repository.save(existingRole);
         roleUpdated.update(this.eventPublisher);
         return roleUpdated;
     }
@@ -56,10 +67,17 @@ public class RoleServiceImpl implements IRoleServicePort {
     @Override
     @Transactional
     public void deleteRoleById(Long id) {
-        Role role = repository.findById(id)
+        Role existingRole = this.repository.findById(id)
             .orElseThrow(() -> new RoleNotFoundException("No se encontro un rol con el id " + id));
+        // eliminamos y publica el evento
+        this.repository.delete(existingRole.getId());
+        existingRole.delete(this.eventPublisher);
+    }
 
-        repository.delete(id);
-        role.delete(this.eventPublisher);
+    private TypeRole validateAndConvertRoleType(String name) {
+        return Arrays.stream(TypeRole.values())
+                .filter(type -> type.name().equalsIgnoreCase(name))
+                .findFirst()
+                .orElseThrow(() -> new RoleNotFoundException("Tipo de rol no válido: " + name));
     }
 }
