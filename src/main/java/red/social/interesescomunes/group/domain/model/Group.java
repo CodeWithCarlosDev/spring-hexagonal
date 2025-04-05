@@ -3,11 +3,9 @@ package red.social.interesescomunes.group.domain.model;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.context.ApplicationEventPublisher;
 import red.social.interesescomunes.category.domain.model.Category;
-import red.social.interesescomunes.group.domain.event.GroupCreatedEvent;
-import red.social.interesescomunes.group.domain.event.GroupDeletedEvent;
-import red.social.interesescomunes.group.domain.event.GroupUpdatedEvent;
+import red.social.interesescomunes.group.domain.enums.GroupStatus;
+import red.social.interesescomunes.group.domain.event.IGroupDomainEventPublisher;
 import red.social.interesescomunes.owner.domain.model.Owner;
 
 import java.time.LocalDateTime;
@@ -28,17 +26,15 @@ public class Group {
     private LocalDateTime updatedAt;
 
     // evento de crear un rol
-    public void create(ApplicationEventPublisher eventPublisher){
-        eventPublisher.publishEvent( new GroupCreatedEvent(this));
+    public void create(IGroupDomainEventPublisher eventPublisher) {
+        eventPublisher.publishGroupCreated(this);
     }
 
-    // evento de actualizacion de un rol
-    public void update(ApplicationEventPublisher eventPublisher){
-        eventPublisher.publishEvent(new GroupUpdatedEvent(this));
+    public void update(IGroupDomainEventPublisher eventPublisher) {
+        eventPublisher.publishGroupUpdated(this);
     }
 
-    // evento de eliminacion de un rol
-    public void delete(ApplicationEventPublisher eventPublisher){
-        eventPublisher.publishEvent(new GroupDeletedEvent(this));
+    public void delete(IGroupDomainEventPublisher eventPublisher) {
+        eventPublisher.publishGroupDeleted(this);
     }
 }

@@ -12,5 +12,4 @@ public class OwnerCreatedEvent {
     public OwnerEventDTO getOwner(){
         return this.owner;
     }
-
 }

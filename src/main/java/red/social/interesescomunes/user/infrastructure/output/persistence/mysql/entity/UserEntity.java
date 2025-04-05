@@ -43,7 +43,7 @@ public class UserEntity {
     private LocalDateTime updatedAt;
 
     @ManyToMany(
-            cascade = CascadeType.ALL,
+            cascade = CascadeType.MERGE,
             fetch = FetchType.EAGER
     )
     @JoinTable(

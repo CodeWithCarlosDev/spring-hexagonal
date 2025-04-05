@@ -32,6 +32,12 @@ public class OwnerPersistenceAdapter implements IOwnerPersistencePort {
     }
 
     @Override
+    public Optional<Owner> findByUserId(Long id) {
+        return jpaRepository.findByUserId(id)
+                .map(mapper::toDomain);
+    }
+
+    @Override
     public Owner save(Owner owner) {
         OwnerEntity ownerEntity = this.mapper.toEntity(owner);
         OwnerEntity savedOwner = this.jpaRepository.save(ownerEntity);

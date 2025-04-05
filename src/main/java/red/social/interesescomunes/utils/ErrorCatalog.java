@@ -2,9 +2,16 @@ package red.social.interesescomunes.utils;
 
 public enum ErrorCatalog  {
     ROLE_NOT_FOUND("ERROR_ROLE_001", "Role not found."),
-    INVALID_ROLE("ERROR_ROLE_001", "Invalid role parameters."),
-    GENERIC_ERROR("ERROR_GEN_001", "An unxpected error occrred."),
-    // ... otros códigos existentes ...
+    INVALID_ROLE("ERROR_ROLE_002", "Invalid role parameters."),
+    GENERIC_ERROR("ERROR_GEN_001", "An unexpected error occurred."),
+
+    CATEGORY_NOT_FOUND("ERROR_CATEGORY_001", "Category not found."),
+
+    GROUP_NOT_FOUND("ERROR_GROUP_001", "Group not found."),
+    INVALID_GROUP("ERROR_GROUP_002", "Invalid group parameters."),
+    GROUP_ALREADY_EXISTS("ERROR_GROUP_003", "Group with this name already exists."),
+
+
     USER_NOT_FOUND("ERROR_USER_001", "User not found."),
     EMAIL_ALREADY_EXISTS("ERROR_USER_002", "Email already registered."),
     USER_ROLE_ALREADY_EXISTS("ERROR_USER_003", "User already has this role assigned."),

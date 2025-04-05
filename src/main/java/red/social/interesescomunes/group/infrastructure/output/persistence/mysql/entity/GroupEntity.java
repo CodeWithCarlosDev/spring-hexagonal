@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import red.social.interesescomunes.category.infrastructure.output.persistence.mysql.entity.CategoryEntity;
-import red.social.interesescomunes.group.domain.model.GroupStatus;
+import red.social.interesescomunes.group.domain.enums.GroupStatus;
 import red.social.interesescomunes.owner.infrastructure.output.persistence.mysql.entity.OwnerEntity;
 
 import java.time.LocalDateTime;
@@ -34,11 +34,17 @@ public class GroupEntity {
     @Column(name = "url_imagen")
     private String imageUrl;
 
-    @ManyToOne
+    @ManyToOne(
+        cascade = CascadeType.MERGE,
+        fetch = FetchType.EAGER
+    )
     @JoinColumn(name = "categoria_id")
     private CategoryEntity category;
 
-    @ManyToOne
+    @ManyToOne(
+        cascade = CascadeType.MERGE,
+        fetch = FetchType.EAGER
+    )
     @JoinColumn(name = "propietario_id", nullable = false)
     private OwnerEntity owner;
 

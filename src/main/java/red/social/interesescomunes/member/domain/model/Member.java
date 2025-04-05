@@ -4,10 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.context.ApplicationEventPublisher;
-import red.social.interesescomunes.member.domain.event.MemberCreatedEvent;
-import red.social.interesescomunes.member.domain.event.MemberDeletedEvent;
-import red.social.interesescomunes.member.domain.event.MemberUpdatedEvent;
+import red.social.interesescomunes.member.domain.enums.MemberStatus;
+import red.social.interesescomunes.member.domain.event.IMemberDomainEventPublisher;
 import red.social.interesescomunes.user.domain.model.User;
 
 import java.time.LocalDateTime;
@@ -23,15 +21,15 @@ public class Member {
     private LocalDateTime endDate;
     private MemberStatus status;
 
-    public void create(ApplicationEventPublisher eventPublisher){
-        eventPublisher.publishEvent(new MemberCreatedEvent(this));
+    public void create(IMemberDomainEventPublisher eventPublisher){
+        eventPublisher.publishMemberCreated(this);
     }
 
-    public void update(ApplicationEventPublisher eventPublisher){
-        eventPublisher.publishEvent(new MemberUpdatedEvent(this));
+    public void update(IMemberDomainEventPublisher eventPublisher){
+        eventPublisher.publishMemberUpdated(this);
     }
 
-    public void delete(ApplicationEventPublisher eventPublisher){
-        eventPublisher.publishEvent(new MemberDeletedEvent(this));
+    public void delete(IMemberDomainEventPublisher eventPublisher){
+        eventPublisher.publishMemberDeleted(this);
     }
 }

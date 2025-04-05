@@ -3,13 +3,13 @@ package red.social.interesescomunes.member.domain.event;
 import red.social.interesescomunes.member.domain.model.Member;
 
 public class MemberUpdatedEvent {
-    private final Member member;
+    private final MemberEventDTO member;
 
-    public MemberUpdatedEvent(Member member) {
-        this.member = member;
+    public MemberUpdatedEvent(Member member){
+        this.member = MemberEventDTO.create(member);
     }
 
-    public Member getOwner() {
-        return member;
+    public MemberEventDTO getMember(){
+        return this.member;
     }
 }

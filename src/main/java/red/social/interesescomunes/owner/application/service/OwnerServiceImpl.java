@@ -9,23 +9,21 @@ import red.social.interesescomunes.owner.domain.model.Owner;
 import red.social.interesescomunes.role.application.input.IRoleServicePort;
 import red.social.interesescomunes.role.domain.enums.TypeRole;
 import red.social.interesescomunes.role.domain.model.Role;
-import red.social.interesescomunes.user.application.input.IUserServicePort;
 import red.social.interesescomunes.user.domain.exception.UserNotFoundException;
 import red.social.interesescomunes.user.domain.model.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OwnerServiceImpl implements IOwnerServicePort {
     private final IOwnerPersistencePort repository;
     private final IOwnerDomainEventPublisher eventPublisher;
-    private final IRoleServicePort roleService;
 
-    public OwnerServiceImpl(IOwnerPersistencePort repository, IOwnerDomainEventPublisher eventPublisher, IRoleServicePort roleService) {
+    public OwnerServiceImpl(IOwnerPersistencePort repository, IOwnerDomainEventPublisher eventPublisher) {
         this.repository = repository;
         this.eventPublisher = eventPublisher;
-        this.roleService = roleService;
     }
 
     @Override
@@ -36,25 +34,17 @@ public class OwnerServiceImpl implements IOwnerServicePort {
     @Override
     public Owner findOwnerById(Long id) {
         return this.repository.findById(id)
-            .orElseThrow( ()-> new UserNotFoundException("No se encontro un miembro con el id " + id));
+            .orElseThrow( ()-> new UserNotFoundException("No se encontro un propietario con el id " + id));
+    }
+
+    @Override
+    public Optional<Owner> findOwnerByUserId(Long id) {
+        return this.repository.findByUserId(id);
     }
 
     @Override
     @Transactional
     public Owner createOwner(Owner owner) {
-        Role role = Role.builder()
-                .name(TypeRole.MIEMBRO)
-                .description("Usuario de la aplicacion que puede ser miembro de un grupo tematico.")
-                .build();
-
-        User user = owner.getUser();
-        user.setRoles(List.of(role));
-        user.setCreatedAt(LocalDateTime.now());
-
-        owner.setStartDate(LocalDateTime.now());
-        owner.setUser(user);
-        System.out.println("ESTE ES EL USUARIO" + owner);
-        // guardamos y publica el evento
         Owner ownerCreated = this.repository.save(owner);
         ownerCreated.create(this.eventPublisher);
         return ownerCreated;

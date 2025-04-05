@@ -13,7 +13,6 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {IUserRestMappert.class, IRoleRestMapper.class})
 public interface IOwnerRestMappert {
-
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "startDate", ignore = true)
     @Mapping(target = "endDate", ignore = true)

@@ -3,13 +3,13 @@ package red.social.interesescomunes.administrator.domain.event;
 import red.social.interesescomunes.administrator.domain.model.Administrator;
 
 public class AdministratorCreatedEvent {
-    private final Administrator administrator;
+    private final AdministratorEventDTO administrator;
 
-    public AdministratorCreatedEvent(Administrator administrator) {
-        this.administrator = administrator;
+    public AdministratorCreatedEvent(Administrator administrator){
+        this.administrator = AdministratorEventDTO.create(administrator);
     }
 
-    public Administrator getOwner() {
-        return administrator;
+    public AdministratorEventDTO getAdministrator(){
+        return this.administrator;
     }
 }

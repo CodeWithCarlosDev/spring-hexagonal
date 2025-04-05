@@ -1,4 +1,9 @@
 package red.social.interesescomunes.group.domain.event;
 
-public class IGroupDomainEventPublisher {
+import red.social.interesescomunes.group.domain.model.Group;
+
+public interface IGroupDomainEventPublisher {
+    void publishGroupCreated(Group group);
+    void publishGroupUpdated(Group group);
+    void publishGroupDeleted(Group group);
 }

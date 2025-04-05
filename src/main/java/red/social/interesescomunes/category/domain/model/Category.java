@@ -8,6 +8,8 @@ import org.springframework.context.ApplicationEventPublisher;
 import red.social.interesescomunes.category.domain.event.CategoryCreatedEvent;
 import red.social.interesescomunes.category.domain.event.CategoryDeletedEvent;
 import red.social.interesescomunes.category.domain.event.CategoryUpdatedEvent;
+import red.social.interesescomunes.category.domain.event.ICategoryDomainEventPublisher;
+import red.social.interesescomunes.owner.domain.event.IOwnerDomainEventPublisher;
 
 @Data
 @AllArgsConstructor
@@ -19,17 +21,15 @@ public class Category {
     private String description;
 
     // evento de crear un rol
-    public void create(ApplicationEventPublisher eventPublisher){
-        eventPublisher.publishEvent( new CategoryCreatedEvent(this));
+    public void create(ICategoryDomainEventPublisher eventPublisher){
+        eventPublisher.publishCategoryCreated(this);
     }
 
-    // evento de actualizacion de un rol
-    public void update(ApplicationEventPublisher eventPublisher){
-        eventPublisher.publishEvent(new CategoryUpdatedEvent(this));
+    public void update(ICategoryDomainEventPublisher eventPublisher){
+        eventPublisher.publishCategoryUpdated(this);
     }
 
-    // evento de eliminacion de un rol
-    public void delete(ApplicationEventPublisher eventPublisher){
-        eventPublisher.publishEvent(new CategoryDeletedEvent(this));
+    public void delete(ICategoryDomainEventPublisher eventPublisher){
+        eventPublisher.publishCategoryDeleted(this);
     }
 }

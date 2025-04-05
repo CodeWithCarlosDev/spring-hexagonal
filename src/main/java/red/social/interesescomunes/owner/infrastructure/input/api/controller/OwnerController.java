@@ -9,6 +9,7 @@ import red.social.interesescomunes.owner.domain.model.Owner;
 import red.social.interesescomunes.owner.infrastructure.input.api.dto.request.OwnerRequest;
 import red.social.interesescomunes.owner.infrastructure.input.api.dto.response.OwnerResponse;
 import red.social.interesescomunes.owner.infrastructure.input.api.mapper.IOwnerRestMappert;
+import red.social.interesescomunes.user.domain.exception.UserNotFoundException;
 
 import java.util.List;
 
@@ -37,12 +38,11 @@ public class OwnerController  {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PostMapping("/signup")
-    public ResponseEntity<OwnerResponse> createOwner(@Valid @RequestBody OwnerRequest ownerRequest) {
-        System.out.println("controller " + ownerRequest);
-        Owner owner = this.mappert.toDomain(ownerRequest);
-        Owner savedOwner = this.service.createOwner(owner);
-        OwnerResponse response = this.mappert.toUserResponse(savedOwner);
+    @GetMapping("/find-by-user-id/{id}")
+    public ResponseEntity<OwnerResponse> findOwnerByUserId(@PathVariable Long id) {
+        Owner owner = this.service.findOwnerByUserId(id)
+                .orElseThrow( ()-> new UserNotFoundException("No se encontro un propietario con el id " + id));
+        OwnerResponse response = this.mappert.toUserResponse(owner);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 

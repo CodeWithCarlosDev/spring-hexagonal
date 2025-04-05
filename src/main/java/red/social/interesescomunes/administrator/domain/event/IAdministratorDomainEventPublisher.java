@@ -1,4 +1,9 @@
 package red.social.interesescomunes.administrator.domain.event;
 
-public class IAdministratorDomainEventPublisher {
+import red.social.interesescomunes.administrator.domain.model.Administrator;
+
+public interface IAdministratorDomainEventPublisher {
+    void publishAdministratorCreated(Administrator administrator);
+    void publishAdministratorUpdated(Administrator administrator);
+    void publishAdministratorDeleted(Administrator administrator);
 }

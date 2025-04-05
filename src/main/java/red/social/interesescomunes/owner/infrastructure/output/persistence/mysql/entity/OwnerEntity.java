@@ -29,9 +29,9 @@ public class OwnerEntity {
 
     @Column(name = "estado")
     private OwnerStatus status;
-
-    @OneToOne(
-            cascade = CascadeType.ALL,
+    //(relación muchos propietarios a un usuario)
+    @ManyToOne(
+            cascade = CascadeType.MERGE,
             fetch = FetchType.EAGER
     )
     @JoinColumn(name = "usuario_id")

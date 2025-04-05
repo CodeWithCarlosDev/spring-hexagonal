@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import red.social.interesescomunes.administrator.domain.model.AdministratorStatus;
+import red.social.interesescomunes.administrator.domain.enums.AdministratorStatus;
 import red.social.interesescomunes.user.infrastructure.output.persistence.mysql.entity.UserEntity;
 
 import java.time.LocalDateTime;

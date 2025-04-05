@@ -3,13 +3,13 @@ package red.social.interesescomunes.category.domain.event;
 import red.social.interesescomunes.category.domain.model.Category;
 
 public class CategoryUpdatedEvent {
-    private final Category category;
+    private final CategoryEventDTO category;
 
-    public CategoryUpdatedEvent(Category category){
-        this.category = category;
+    public CategoryUpdatedEvent(Category category) {
+        this.category = CategoryEventDTO.create(category);
     }
 
-    public Category getCategory(){
+    public CategoryEventDTO getCategory() {
         return this.category;
     }
 }

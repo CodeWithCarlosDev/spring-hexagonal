@@ -3,13 +3,13 @@ package red.social.interesescomunes.group.domain.event;
 import red.social.interesescomunes.group.domain.model.Group;
 
 public class GroupDeletedEvent {
-    private final Group group;
+    private final GroupEventDTO group;
 
-    public GroupDeletedEvent( Group group){
-        this.group = group;
+    public GroupDeletedEvent(Group group) {
+        this.group = GroupEventDTO.create(group);
     }
 
-    public Group getGroup(){
+    public GroupEventDTO getGroup() {
         return this.group;
     }
 }

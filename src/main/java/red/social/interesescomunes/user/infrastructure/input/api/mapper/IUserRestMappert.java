@@ -11,7 +11,6 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {IRoleRestMapper.class})
 public interface IUserRestMappert {
-
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)

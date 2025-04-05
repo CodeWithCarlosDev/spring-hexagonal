@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import red.social.interesescomunes.role.domain.model.Role;
-import red.social.interesescomunes.user.domain.event.IUserDomainEventPublisher;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,16 +23,4 @@ public class User {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private List<Role> roles;
-
-    public void create(IUserDomainEventPublisher eventPublisher) {
-        eventPublisher.publishUserCreated(this);
-    }
-
-    public void update(IUserDomainEventPublisher eventPublisher) {
-        eventPublisher.publishUserUpdated(this);
-    }
-
-    public void delete(IUserDomainEventPublisher eventPublisher) {
-        eventPublisher.publishUserDeleted(this);
-    }
 }
